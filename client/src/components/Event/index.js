@@ -2,9 +2,9 @@ import React from 'react';
 import Auth from '../../utils/auth';
 import { Link } from 'react-router-dom';
 
-function Nav() {
+function Event() {
 
 return <div>Event</div>
 }
 
-export default Nav;
+export default Event;
