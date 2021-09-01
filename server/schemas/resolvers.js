@@ -13,7 +13,7 @@ const resolvers = {
       return await Event.find().populate('category');
     },
 
-    },
+    
     event: async (parent, { _id }) => {
       return await Event.findById(_id).populate('category','chefs','dishes');
     },
@@ -26,7 +26,8 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-
+  }, 
+  
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -34,18 +35,7 @@ const resolvers = {
 
       return { token, user };
     },
-    addEvent: async (parent, { chefs, dishes }, context) => {
-      console.log(context);
-      if (context.user) {
-        const event = new Event({ chefs, dishes });
-
-        await User.findByIdAndUpdate(context.user._id, { $push: { events: event } });
-
-        return event;
-      }
-
-      throw new AuthenticationError('Not logged in');
-    },
+  
     addDish: async (parent, args, context) => {
       console.log(context);
       if (context.user) {
@@ -58,13 +48,7 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-    updateEvent: async (parent, args, context) => {
-      if (context.user) {
-        return await Event.findByIdAndUpdate(context.user._id, args, { new: true });
-      }
-
-      throw new AuthenticationError('Not logged in');
-    },
+  
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 

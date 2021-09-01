@@ -1,6 +1,8 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+scalar Date
+
   type User {
     _id: ID
     firstName: String
@@ -16,9 +18,10 @@ const typeDefs = gql`
     description: String
   }
 
+
   type Event {
     _id: ID
-    date: String
+    date: Date
     location: String
     host: User
     dishes: [Dish]
@@ -29,6 +32,7 @@ const typeDefs = gql`
     _id: ID
     name: String
   }
+
   type Auth {
     token: ID
     user: User
@@ -51,25 +55,12 @@ const typeDefs = gql`
 
 
     login(email: String!, password: String!): Auth
+    
     addDish(name: String!
-      description: String!)
-
-    addEvent(
-      date: String!
-      dishes: [Dish]!
-      chefs: [User]!
-      location: String!
-      category: Category!)
-
-    updateEvent(_id: ID!
-      date: String!
-      dishes: [Dish]!
-      chefs: [User]!
-      location: String!
-      category: Category!)
-
+      description: String!): Dish
 
   }
 `;
 
 module.exports = typeDefs;
+ 
