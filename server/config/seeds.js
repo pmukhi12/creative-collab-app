@@ -22,43 +22,41 @@ db.once("open", async () => {
       name: "Quail Legs with Tamarind Glaze and Fig Chutney",
       description:
         "A gourmet plate featuring tangy glazed quail legs served with a freshly made fig chutney.",
-    
     },
     {
       name: "Coffee With Milk And Sugar",
-      description:
-        "A gourmet Java coffee with lactose milk and brown sugar",
-   
+      description: "A gourmet Java coffee with lactose milk and brown sugar",
     },
   ]);
   console.log("dishes seeded");
 
-  await Event.deleteMany();
+  // await Event.deleteMany();
 
-  const events = await Event.insertMany([
-    {
-      date: new Date(),
-      name: "Fine Dining Party",
-      location: "11 Lexington Ave, New York, NY 10016",
-      category: categories[0]._id,
-      dishes: [dishes[0]._id]
-    },
-    {
-      date: new Date(),
-      name: "Fine Dining Supper",
-      location: "11 Lexington Ave, New York, NY 10016",
-      category: categories[0]._id,
-      dishes: [dishes[1]._id]
-    },
-    {
-      date: new Date(),
-      name: "Coffee Party",
-      location: "5th Ave, New York, NY 10018",
-      category: categories[0]._id,
-    },
-  ]);
+  // const events = await Event.insertMany([
+  //   {
+  //     date: new Date(),
+  //     location: "11 Lexington Ave, New York, NY 10016",
+  //     dishes: [dishes[0]._id],
+  //     chefs: [chefs],
+  //     category: categories[0]._id,
+  //   },
+  //   {
+  //     date: new Date(),
+  //     location: "11 Lexington Ave, New York, NY 10016",
+  //     category: categories[1]._id,
+  //     chefs: User[0]._id,
+  //     dishes: [dishes[1]._id],
+  //   },
+  //   {
+  //     date: new Date(),
+  //     location: "5th Ave, New York, NY 10018",
+  //     category: categories[1]._id,
+  //     chefs: User[1]._id,
+  //     dishes: [dishes[2]._id],
+  //   },
+  // ]);
 
-  console.log("events seeded");
+  // console.log("events seeded");
 
   await User.deleteMany();
 
@@ -77,10 +75,6 @@ db.once("open", async () => {
   });
 
   console.log("users seeded");
-
-
-
-
 
   process.exit();
 });

@@ -17,6 +17,7 @@ scalar Date
     description: String
   }
 
+
   type Event {
     _id: ID
     date: Date
@@ -30,6 +31,7 @@ scalar Date
     _id: ID
     name: String
   }
+
   type Auth {
     token: ID
     user: User
@@ -52,6 +54,7 @@ scalar Date
 
 
     login(email: String!, password: String!): Auth
+    
     addDish(name: String!
       description: String!)
 
