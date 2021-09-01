@@ -1,91 +1,89 @@
-// const db = require("./connection");
-// const { User, Event, Category, Dish } = require("../models");
-// const { insertMany } = require("../models/Gallery");
+const db = require("./connection");
+const { User, Event, Category, Dish } = require("../models");
 
-// db.once("open", async () => {
-//   await Category.deleteMany();
+db.once("open", async () => {
+  await Category.deleteMany();
 
-//   const categories = await Category.insertMany([
-//     { name: "Fine Dining" },
-//     { name: "Casual Dining" },
-//   ]);
+  const categories = await Category.insertMany([
+    { name: "Fine Dining" },
+    { name: "Casual Dining" },
+  ]);
 
-//   console.log("categories seeded");
+  console.log("categories seeded");
 
-//   await Event.deleteMany();
+  await Dish.deleteMany();
+  const dishes = await Dish.insertmany([
+      {
+          name: "Caskata Red Lobster Large Oval Rimmed Platter",
+          description:
+          "East meets West in this playful battle between these spirited crustaceans. Lobsters from both coasts sprawl across this generously sized porcelain oval platter, adding a graphic dose of seaside style to any table. Inspired by the New England clambakes we loved as kids, this is a platter worth fighting for!",
+      },
+      {
+          name: "Quail Legs with Tamarind Glaze and Fig Chutney",
+          description:
+          "A gourmet plate featuring tangy glazed quail legs served with a freshly made fig chutney.",
 
-//   const events = await Event.insertMany([
-//     {
-//       name: "Fine Dining Party",
-//       location: "11 Lexington Ave, New York, NY 10016",
+      },
+      {
+          name: "Classic Cheeseburger",
+          description:
+           "Is there anything more satisfyingn than having a good ol' classic burger",
+      },
+  ]);
+  console.log("dishes seeded");
 
-//       category: categories[0]._id,
-//       host: "Chef John Doe",
-//       chefs: ["Chef Jane Doe", "Chef Jannie Doe"],
-//     },
-//     {
-//       name: "Fine Dining Supper",
-//       location: "11 Lexington Ave, New York, NY 10016",
+  await Event.deleteMany();
 
-//       category: categories[0]._id,
-//       host: "Chef John Doe",
-//       chefs: ["Chef Jane Doe", "Chef Jannie Doe"],
-//     },
-//     {
-//       name: "Coffee Party",
-//       location: "5th Ave, New York, NY 10018",
+  const events = await Event.insertMany([
 
-//       category: categories[0]._id,
-//       host: "Chef Jerry Smith",
-//       chefs: ["Chef Helen Smith", "Chef Eva Smith"],
-//     },
-//   ]);
+    {
+        date: new Date(),
+        location: "11 Lexington Ave, New York, NY 10016",
+        category: categories[0].id,        
+        chefs: User[0]._id,
+        dishes: [dishes[0]._id],
+    },
+    {
+        date: new Date(),
+        location: "11 Lexington Ave, New York, NY 10016",
+        category: categories[1].id,        
+        chefs: User[0]._id,
+        dishes: [dishes[1]._id],
+    },
+    {
+        date: new Date(),
+        location: "5th Ave, New York, NY 10018",
+        category: categories[1].id,        
+        chefs: User[1]._id,
+        dishes: [dishes[2]._id],
+    },
+  ]);
 
-//   console.log("events seeded");
-//   await Dish.deleteMany();
-//   const dishes = await Dish.insertMany([
-//     {
-//       name: "Caskata Red Lobster Large Oval Rimmed Platter",
-//       description:
-//         "East meets West in this playful battle between these spirited crustaceans. Lobsters from both coasts sprawl across this generously sized porcelain oval platter, adding a graphic dose of seaside style to any table. Inspired by the New England clambakes we loved as kids, this is a platter worth fighting for!",
-//     },
-//     {
-//       name: "Quail Legs with Tamarind Glaze and Fig Chutney",
-//       description:
-//         "A gourmet plate featuring tangy glazed quail legs served with a freshly made fig chutney.",
-    
-//     },
-//     {
-//       name: "Coffee With Milk And Sugar",
-//       description:
-//         "A gourmet Java coffee with lactose milk and brown sugar",
-   
-//     },
-//   ]);
-//   console.log("dishes seeded");
+  console.log("events seeded");
 
-//   await User.deleteMany();
+  await User.deleteMany();
 
-//   await User.create({
-//     firstName: "John",
-//     lastName: "Doe",
-//     email: "john.doe@testmail.com",
-//     password: "password12345",
-//     gallery: [
-//       {
-//         events: [events[0]._id, events[1]._id],
-//       },
-//     ],
-//   });
+  await User.create({
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@testmail.com",
+    password: "password12345",
+  });
 
-//   await User.create({
-//     firstName: "Jerry",
-//     lastName: "smith",
-//     email: "jerry.smith@testmail.com",
-//     password: "password12345",
-//   });
+  await User.create({
+    firstName: "Jerry",
+    lastName: "smith",
+    email: "jerry.smith@testmail.com",
+    password: "password12345",
+  });
 
-//   console.log("users seeded");
+  await User.create({
+      firstName: "Junior",
+      lastName: "Mizhuqiri",
+      email: "junioromizhquiri@gmail.com",
+      password: "password12345"
+  });
 
-//   process.exit();
-// });
+  console.log("users seeded");
+  process.exit();
+});

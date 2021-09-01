@@ -1,53 +1,27 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Product, Category, Order } = require('../models');
+const { User, Event, Category, Dish} = require('../models');
 const { signToken } = require('../utils/auth');
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+
 
 const resolvers = {
   Query: {
+    // pass params as a string (drop down selection for users to pick cuisines that are pulled from the data User inputs)
     categories: async () => {
       return await Category.find();
     },
-    events: async (parent, { category, name }) => {
-      const params = {};
+    events: async () => {
+      return await Event.find().populate('category');
+    },
 
-      if (category) {
-        params.category = category;
-      }
-
-      if (name) {
-        params.name = {
-          $regex: name
-        };
-      }
-
-      return await EventTarget.find(params).populate('category');
     },
     event: async (parent, { _id }) => {
-      return await Event.findById(_id).populate('category');
+      return await Event.findById(_id).populate('category','chefs','dishes');
     },
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate({
-          path: 'myEvents.events',
-          populate: 'category'
-        });
-
-        user.myEvents.sort((a, b) => b.eventDate - a.eventDate);
+        const user = await User.findById(context.user._id).populate('dishes', 'events')
 
         return user;
-      }
-
-      throw new AuthenticationError('Not logged in');
-    },
-    myEvents: async (parent, { _id }, context) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id).populate({
-          path: 'myEvents.events',
-          populate: 'category'
-        });
-
-        return user.myEvents.id(_id);
       }
 
       throw new AuthenticationError('Not logged in');
@@ -60,29 +34,36 @@ const resolvers = {
 
       return { token, user };
     },
-    addOrder: async (parent, { products }, context) => {
+    addEvent: async (parent, { chefs, dishes }, context) => {
       console.log(context);
       if (context.user) {
-        const order = new Order({ products });
+        const event = new Event({ chefs, dishes });
 
-        await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+        await User.findByIdAndUpdate(context.user._id, { $push: { events: event } });
 
-        return order;
+        return event;
       }
 
       throw new AuthenticationError('Not logged in');
     },
-    updateUser: async (parent, args, context) => {
+    addDish: async (parent, args, context) => {
+      console.log(context);
       if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, args, { new: true });
+        const dish = new Dish.create({args});
+
+        await User.findByIdAndUpdate(context.user._id, { $push: { dishes: dish } });
+
+        return dish;
       }
 
       throw new AuthenticationError('Not logged in');
     },
-    updateProduct: async (parent, { _id, quantity }) => {
-      const decrement = Math.abs(quantity) * -1;
+    updateEvent: async (parent, args, context) => {
+      if (context.user) {
+        return await Event.findByIdAndUpdate(context.user._id, args, { new: true });
+      }
 
-      return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
+      throw new AuthenticationError('Not logged in');
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
