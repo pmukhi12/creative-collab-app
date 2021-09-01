@@ -37,9 +37,8 @@ const typeDefs = gql`
   type Query {
     user: User
     event(_id: ID!): Event
-    dish: Dish
-    createEvent(dishes: [ID]!): CreateEvent
-    dishes(user: ID!): Dishes
+    categories: [Category]
+    events: [Event]
   }
 
   type Mutation {
@@ -50,25 +49,27 @@ const typeDefs = gql`
       password: String!
     ): Auth
 
-    updateUser(
-      firstName: String
-      lastName: String
-      email: String
-      password: String
-    ): User
 
     login(email: String!, password: String!): Auth
     addDish(name: String!
       description: String!)
+
     addEvent(
       date: String!
       dishes: [Dish]!
-      users: [User]!)
+      chefs: [User]!
+      location: String!
+      category: Category!)
+
     updateEvent(_id: ID!
+      date: String!
       dishes: [Dish]!
-      users: [User]!)
+      chefs: [User]!
+      location: String!
+      category: Category!)
+
+
   }
-  
 `;
 
 module.exports = typeDefs;
