@@ -14,8 +14,8 @@ export const QUERY_ALL_EVENTS = gql`
 `;
 
 export const QUERY_EVENT = gql`
-  { event
-    {
+  { query event($_id: ID!)
+    event(_id: $_id){
       _id
       date
       location

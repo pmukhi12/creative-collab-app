@@ -12,13 +12,13 @@ import { Provider } from 'react-redux';
 import store from './utils/store';
 
 import Home from './pages/Home';
-import Profile from './pages/Profile';
+// import Profile from './pages/Profile';
 import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Nav from './components/Nav';
-import EventDetails from './pages/Success';
-import DishDetails from './pages/DishDetails';
+// import EventDetails from './pages/Success';
+// import DishDetails from './pages/DishDetails';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -50,9 +50,9 @@ function App() {
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
-              <Route exact path="/profile/:id" component={Profile} />
+              {/* <Route exact path="/profile/:id" component={Profile} />
               <Route exact path="/events/:id" component={EventDetails} />
-              <Route exact path="/dishes/:id" component={DishDetails} />
+              <Route exact path="/dishes/:id" component={DishDetails} /> */}
               <Route component={NoMatch} />
             </Switch>
           </Provider>
