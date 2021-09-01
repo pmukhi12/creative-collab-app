@@ -1,11 +1,3 @@
-node_modules
-
-.env
-
-mongodb+srv://heroku:bestPassword1@cluster0.6wxef.mongodb.net/chef?retryWrites=true&w=majority
-
-
-
 # Logs
 logs
 *.log
