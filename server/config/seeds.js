@@ -30,51 +30,57 @@ db.once("open", async () => {
   ]);
   console.log("dishes seeded");
 
-  // await Event.deleteMany();
-
-  // const events = await Event.insertMany([
-  //   {
-  //     date: new Date(),
-  //     location: "11 Lexington Ave, New York, NY 10016",
-  //     dishes: [dishes[0]._id],
-  //     chefs: [chefs],
-  //     category: categories[0]._id,
-  //   },
-  //   {
-  //     date: new Date(),
-  //     location: "11 Lexington Ave, New York, NY 10016",
-  //     category: categories[1]._id,
-  //     chefs: User[0]._id,
-  //     dishes: [dishes[1]._id],
-  //   },
-  //   {
-  //     date: new Date(),
-  //     location: "5th Ave, New York, NY 10018",
-  //     category: categories[1]._id,
-  //     chefs: User[1]._id,
-  //     dishes: [dishes[2]._id],
-  //   },
-  // ]);
-
-  // console.log("events seeded");
 
   await User.deleteMany();
 
-  await User.create({
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@testmail.com",
-    password: "password12345",
-  });
+  const users = await User.create(
+    {
+      firstName: "John",
+      lastName: "Doe",
+      email: "john.doe@testmail.com",
+      password: "password12345",
+      dishes: [dishes[0]._id],
+    },
 
-  await User.create({
-    firstName: "Jerry",
-    lastName: "smith",
-    email: "jerry.smith@testmail.com",
-    password: "password12345",
-  });
-
+    {
+      firstName: "Jerry",
+      lastName: "smith",
+      email: "jerry.smith@testmail.com",
+      password: "password12345",
+    },
+  );
   console.log("users seeded");
+
+  await Event.deleteMany();
+
+  const events = await Event.insertMany([
+    {
+      date: new Date(),
+      name: "Evening Dinner",
+      location: "11 Lexington Ave, New York, NY 10016",
+      dishes: [dishes[0]._id],
+      chefs: [users[0]._id],
+      category: categories[0]._id,
+    },
+    {
+      date: new Date(),
+      location: "11 Lexington Ave, New York, NY 10016",
+      name: "Supper",
+      category: categories[1]._id,
+      chefs: [users[0]._id],
+      dishes: [dishes[1]._id],
+    },
+    {
+      date: new Date(),
+      name: "Tea Party",
+      location: "5th Ave, New York, NY 10018",
+      category: categories[1]._id,
+      chefs: [users[0]._id],
+      dishes: [dishes[2]._id],
+    },
+  ]);
+
+  console.log("events seeded");
 
   process.exit();
 });

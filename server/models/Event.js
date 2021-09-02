@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const User = require("./User");
-const Dish = require("./Dish");
 
 const eventSchema = new Schema({
   date: {

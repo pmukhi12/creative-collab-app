@@ -6,7 +6,6 @@ const initialState = {
   events: [],
   chefs: [],
   categories: [],
-  currentCategory: '',
 };
 
 export const reducers = (state = initialState, action) => {
