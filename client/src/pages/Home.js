@@ -1,11 +1,11 @@
 import React from "react";
-import Event from "../components/Event";
+import EventContainer from "../components/EventContainer";
 
 
 const Home = () => {
   return (
     <div className="container">
-      <Event />
+      <EventContainer />
   
     </div>
   );
