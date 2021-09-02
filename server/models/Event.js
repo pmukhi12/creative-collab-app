@@ -1,39 +1,37 @@
-const mongoose = require('mongoose');
-const Dish = require('./Dish');
-
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const userSchema = require('./User');
-const dishSchema = require('./Dish');
-
+const User = require("./User");
+const Dish = require("./Dish");
 
 const eventSchema = new Schema({
   date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   location: {
-    type: String
+    type: String,
   },
-  
+
   host: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
- 
+
   category: {
     type: Schema.Types.ObjectId,
-    ref: 'Category',
-    required: true
+    ref: "Category",
+    required: true,
   },
-  dishes: [dishSchema],
-  chefs: [userSchema]
+  dishes: { type: ["ObjectId"], ref: "Dish" },
+  chefs: { type: ["ObjectId"], ref: "User" },
+ 
 });
 
-const Event = mongoose.model('Event', eventSchema);
+const Event = mongoose.model("Event", eventSchema);
 
 module.exports = Event;

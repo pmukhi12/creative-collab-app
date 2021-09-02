@@ -1,37 +1,37 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-export const QUERY_PRODUCTS = gql`
-  query getProducts($category: ID) {
-    products(category: $category) {
+export const QUERY_ALL_EVENTS = gql`
+  {
+    events {
       _id
-      name
-      description
-      price
-      quantity
-      image
+      date
+      location
       category {
-        _id
+        name
       }
     }
   }
 `;
 
-export const QUERY_CHECKOUT = gql`
-  query getCheckout($products: [ID]!) {
-    checkout(products: $products) {
-      session
-    }
-  }
-`;
-
-export const QUERY_ALL_PRODUCTS = gql`
-  {
-    products {
+export const QUERY_EVENT = gql`
+  { query event($_id: ID!)
+    event(_id: $_id){
       _id
-      name
-      description
-      price
-      quantity
+      date
+      location
+      host {
+        firstName
+        lastName
+        email
+      }
+      dishes {
+        name
+        description
+      }
+      chefs {
+        firstName
+        lastName
+      }
       category {
         name
       }
@@ -53,18 +53,31 @@ export const QUERY_USER = gql`
     user {
       firstName
       lastName
-      orders {
+      events {
         _id
-        purchaseDate
-        products {
-          _id
-          name
-          description
-          price
-          quantity
-          image
+        date
+        location
+        host {
+          firstName
+          lastName
+          email
         }
+       dishes {
+         name
+         description
+       }
+       chefs{
+         firstName
+         lastName
+       }
+       category{
+         name
+       }
       }
-    }
+      dishes {
+        _id
+        name
+        description
+      }
   }
 `;
