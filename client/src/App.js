@@ -17,6 +17,7 @@ import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Nav from './components/Nav';
+import EventDetails from './components/EventDetails';
 // import EventDetails from './pages/Success';
 // import DishDetails from './pages/DishDetails';
 
@@ -50,6 +51,7 @@ function App() {
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
+              <Route exact path="/products/:id" component={EventDetails} />
               {/* <Route exact path="/profile/:id" component={Profile} />
               <Route exact path="/events/:id" component={EventDetails} />
               <Route exact path="/dishes/:id" component={DishDetails} /> */}
