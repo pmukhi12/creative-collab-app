@@ -1,30 +1,30 @@
 import { gql } from "@apollo/client";
 
 export const QUERY_EVENTS = gql`
-  query getEvents ($category: ID!){
-    products(category: $category) {
-      _id
-      date
+  query events {
+    events {
+    _id
+    date
+    name
+    location
+    host {
+      firstName
+      lastName
+      email
+    }
+    dishes {
       name
-      location
-      host {
-        firstName
-        lastName
-        email
-      }
-      dishes {
-        name
-        description
-      }
-      chefs {
-        firstName
-        lastName
-      }
-      category {
-        name
-      }
+      description
+    }
+    chefs {
+      firstName
+      lastName
+    }
+    category {
+      name
     }
   }
+}
 `;
 
 export const QUERY_ALL_EVENTS = gql`
@@ -50,33 +50,30 @@ export const QUERY_CATEGORIES = gql`
   }
 `;
 
-
-
 export const QUERY_USER = gql`
   {
     user {
       firstName
       lastName
+      dishes {
+        _id
+        name
+        description
+      }
+      events {
+        _id
+        date
+        name
+        location
         dishes {
-          _id
           name
           description
         }
-        events {
-          _id
-          date
-          name
-          location
-        dishes {
-          name
-          description
-        }
-        chefs{
+        chefs {
           firstName
           lastName
         }
-    
-        }
       }
+    }
   }
 `;

@@ -1,27 +1,21 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 
-function EventDetails(event) {
+// import DishDetails from '../components/DishDetails';
+// import DishForm from '../components/DishForm';
 
-        // const [updateEvent] = useMutation(UPDATE_EVENT);
+const EventDetails = (props, { currentPage, handlePageChange }) => {
 
-  // function changeEvent(){
-  //   updateEvent(event)
-  // }
   return (
-    <Card style={{ width: "18rem" }}>
-      <Card.Body>
-        <Card.Title><span>
-        </span></Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-        <Card.Text>
-       🧑‍🍳
-        </Card.Text>
-        <Card.Link href="#">Card Link</Card.Link>
-        <Card.Link href="#">Another Link</Card.Link>
-      </Card.Body>
+    <Card style={{ width: '18rem' }}>
+      <Link to={`/events/${props._id}`}>{props.name}</Link>
+      <ListGroup variant="flush">
+    <ListGroup.Item>{props.location}</ListGroup.Item>
+    <ListGroup.Item>{props.date}</ListGroup.Item>
+  </ListGroup>
     </Card>
   );
-}
+};
 
 export default EventDetails;
