@@ -17,8 +17,8 @@ function EventContainer() {
 
   const { loading, data } = useQuery(QUERY_EVENTS);
 
-
   function filterEvents() {
+    console.log("state", state)
     if (!currentCategory) {
       return state.events;
     }
@@ -32,17 +32,19 @@ function EventContainer() {
     <Card style={{ width: "18rem" }}>
       <Card.Body>
         <Card.Title>All Public Events</Card.Title>
-        {state.events.length ? (
+        {loading ? <div>Loading</div>
+        : data.events.length ? (
           <Card.Body className="flex-row">
-            {filterEvents().map((event) => (
-              <EventDetails
+            {data.events.map((event) => {
+              console.log("event", event)
+             return <EventDetails
                 key={event._id}
                 _id={event._id}
                 date={event.date}
                 name={event.name}
                 location={event.location}
               />
-            ))}
+})}
           </Card.Body>
         ) : (
           <h3>You haven't added any events yet!</h3>

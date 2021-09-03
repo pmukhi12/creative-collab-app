@@ -9,9 +9,15 @@ const resolvers = {
       return await Category.find();
     },
     events: async () => {
-      return await Event.find().populate("category");
-    },
-
+  
+    try{ 
+      const events = await Event.find().populate("category");
+      console.log(events)
+      return events
+    }catch(e){
+      console.log(e)
+    }
+  },
     event: async (parent, { _id }) => {
       return await Event.findById(_id).populate("category", "chefs", "dishes");
     },

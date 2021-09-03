@@ -7,26 +7,14 @@ import { useQuery } from '@apollo/client';
 // import DishDetails from '../components/DishDetails';
 // import DishForm from '../components/DishForm';
 
-import { QUERY_EVENTS } from '../../utils/queries';
 
-const EventDetails = () => {
-  // Use `useParams()` to retrieve value of the route parameter `:profileId`
-  const { eventId } = useParams();
 
-  const { loading, data } = useQuery(QUERY_EVENTS , {
-    // Pass the `thoughtId` URL parameter into query to retrieve this thought's data
-    variables: { eventId: eventId },
-  });
+const EventDetails = (props) => {
 
-  const event = data?.event || {};
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   return (
     <Card className="my-3">
       <h3 className="card-header bg-dark text-light p-2 m-0">
-        {event.name} <br />
+        {props.name} <br />
 
       </h3>
       <div className="bg-light py-4">
@@ -39,15 +27,15 @@ const EventDetails = () => {
             lineHeight: '1.5',
           }}
         >
-          {event.location}
+          {props.location}
         </blockquote>
       </div>
 
       <div className="my-5">
-      {event.date} <br/>
+      {props.date} <br/>
       </div>
       <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
-      {event._id} <br/>
+      {props._id} <br/>
       </div>
     </Card>
   );
