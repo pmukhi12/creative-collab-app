@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {
   ApolloClient,
@@ -8,16 +8,14 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-import { Provider } from 'react-redux';
-import store from './utils/store';
-
 import Home from './pages/Home';
 // import Profile from './pages/Profile';
 import NoMatch from './pages/NoMatch';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Nav from './components/Nav';
-import EventDetails from './components/EventDetails';
+import Event from './components/Event';
+
 // import EventDetails from './pages/Success';
 // import DishDetails from './pages/DishDetails';
 
@@ -45,19 +43,13 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <Provider store={store}>
             <Nav />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
-              <Route exact path="/products/:id" component={EventDetails} />
-              {/* <Route exact path="/profile/:id" component={Profile} />
-              <Route exact path="/events/:id" component={EventDetails} />
-              <Route exact path="/dishes/:id" component={DishDetails} /> */}
               <Route component={NoMatch} />
             </Switch>
-          </Provider>
         </div>
       </Router>
     </ApolloProvider>
