@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const QUERY_EVENTS = gql`
   query getEvents ($category: ID!){
-    products(category: $category) {
+    events(category: $category) {
       _id
       date
       name
