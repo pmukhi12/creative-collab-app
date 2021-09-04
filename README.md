@@ -15,7 +15,7 @@
 
 # Screenshot
 
-![Screenshot](./client/public/images/Chef.png)
+![Screenshot](./client/public/images/chef1.png)
 
 # Install
  
