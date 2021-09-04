@@ -1,10 +1,13 @@
 import React from "react";
+
 import { Card } from "react-bootstrap";
 
-// import query
-function Event({setSelectedEvent}) {
-return <Card onClick={()=>setSelectedEvent(null)} >Event</Card>
+export default function Event(props) {
+
+  return (
+    
+    <Card style={{ width: "80rem", margin:"10px" }}>
+    Development In Progress
+    </Card>
+);
 }
-
-export default Event;
-

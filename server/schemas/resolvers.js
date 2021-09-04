@@ -9,25 +9,21 @@ const resolvers = {
       return await Category.find();
     },
     events: async () => {
-  
-    try{ 
-      const events = await Event.find().populate("category");
-      console.log(events)
-      return events
-    }catch(e){
-      console.log(e)
-    }
-  },
+      const events = await Event.find()
+        .populate("category")
+        .populate("dishes")
+        .populate("chefs")
+        .populate("host");
+      return events;
+    },
     event: async (parent, { _id }) => {
-      return await Event.findById(_id).populate("category", "chefs", "dishes");
+      return await Event.findById(_id).populate("category").populate("chefs").populate("dishes");
     },
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate(
-          "dishes",
-          "events"
-        );
-
+        const user = await User.findById(context.user._id)
+          .populate("dishes")
+          .populate("events");
         return user;
       }
 
@@ -71,12 +67,17 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
 
-    updateEvent: async (parent, {hostId, chefId, dishId}, context) => {
+    updateEvent: async (parent, { hostId, chefId, dishId }, context) => {
       if (context.user) {
-        return await Event.findByIdAndUpdate(context.user._id, {hostId: host}, {chefId: chefs}, {dishId: dishes},{
-          
-          new: true,
-        });
+        return await Event.findByIdAndUpdate(
+          context.user._id,
+          { hostId: host },
+          { chefId: chefs },
+          { dishId: dishes },
+          {
+            new: true,
+          }
+        );
       }
 
       throw new AuthenticationError("Not logged in");

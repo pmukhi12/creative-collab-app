@@ -11,7 +11,7 @@ const Home = () => {
 
   return (
     <div className="container">
-      {selectedEvent ? <Event setSelectedEvent ={setSelectedEvent} /> :  <EventContainer data={data} loading={loading} setSelectedEvent= {setSelectedEvent}/>}
+      {selectedEvent ? <Event setSelectedEvent ={setSelectedEvent} data={data} loading={loading}/> :  <EventContainer data={data} loading={loading} setSelectedEvent= {setSelectedEvent}/>}
     </div>
   );
 };
